@@ -4,3 +4,8 @@ branches:
   develop:
     increment: Minor
     tag: preview
+  cake-workshop:
+    regex: cake\-workshop #this is required to deal with the "dash"
+    increment: Major
+    tag: cool-prerelease1
+

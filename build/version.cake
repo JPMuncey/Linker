@@ -6,13 +6,18 @@ using System.Text.RegularExpressions;
 
 public static string ReadVersionFromProjectFile(ICakeContext context)
 {
+    // extract the version from the project file using xpath
     var versionNode = "/Project/PropertyGroup/Version/text()";
 
-    // TODO: return the content of the version node in the project file
-    return null;
+    return context.XmlPeek(
+        Paths.WebProjectFile, 
+        versionNode,
+        new XmlPeekSettings(){
+            SuppressWarning = true
+        });
 }
 
-public static bool LatestCommitHasVersionTag(this ICakeContext context)
+/* public static bool LatestCommitHasVersionTag(this ICakeContext context)
 {
     var latestTag = context.GitDescribe(Paths.RepoDirectory);
     var isVersionTag = Regex.IsMatch(latestTag, @"v[0-9]*");
@@ -20,3 +25,4 @@ public static bool LatestCommitHasVersionTag(this ICakeContext context)
 
     return isVersionTag && noCommitsAfterLatestTag;
 }
+*/
