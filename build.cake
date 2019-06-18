@@ -171,4 +171,12 @@ Task("Deploy-Octopus")
 
     });
 
+Task("Set-Build-Number")
+    .WithCriteria(() => !BuildSystem.IsRunningOnAzurePipelinesHosted)
+    .Does<PackageMetadata>(package =>
+    {
+        var buildNumber = TFBuild.Environment.Build.Number;
+        TFBuild.Commands.UpdateBuildNumber($"{package.Version}+{buildNumber}");
+    });
+
 RunTarget(target);
