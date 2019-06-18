@@ -179,4 +179,13 @@ Task("Set-Build-Number")
         TFBuild.Commands.UpdateBuildNumber($"{package.Version}+{buildNumber}");
     });
 
+Task("Build-CI")
+    .IsDependentOn("Compile")
+    .IsDependentOn("Test")
+    .IsDependentOn("Build-Frontend")
+    .IsDependentOn("Version")
+    .IsDependentOn("Package-Zip")
+    .IsDependentOn("Set-Build-Number");
+
+
 RunTarget(target);
