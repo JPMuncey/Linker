@@ -222,8 +222,8 @@ Task("Build-CI")
     .IsDependentOn("Version")
     .IsDependentOn("Package-Zip")
     .IsDependentOn("Set-Build-Number")
-    .IsDependentOn("Publish-Test-Results")
-    .IsDependentOn("Publish-Build-Artifact");
+    .IsDependentOn("Publish-Build-Artifact")
+    .IsDependentOn("Publish-Test-Results");
 
 
 RunTarget(target);
