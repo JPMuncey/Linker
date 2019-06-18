@@ -185,6 +185,14 @@ Task("Publish-Build-Artifact")
     .Does<PackageMetadata>(package =>
     {
         TFBuild.Commands.UploadArtifactDirectory(package.OutputDirectory);
+
+        // For TeamCity
+        /*        
+        foreach(var p in GetFiles(package.OutputDirectory + $"/*.{package.Extension}"))
+        {
+            TeamCity.PublishArtifacts(p.FullPath);
+        }
+        */
     });
 
 Task("Build-CI")
@@ -193,7 +201,8 @@ Task("Build-CI")
     .IsDependentOn("Build-Frontend")
     .IsDependentOn("Version")
     .IsDependentOn("Package-Zip")
-    .IsDependentOn("Set-Build-Number");
+    .IsDependentOn("Set-Build-Number")
+    .IsDependentOn("Publish-Build-Artifact");
 
 
 RunTarget(target);
